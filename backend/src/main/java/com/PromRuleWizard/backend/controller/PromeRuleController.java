@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.PromRuleWizard.backend.dto.ApplicationMetricsDto;
-import com.PromRuleWizard.backend.service.M2MService;
 import com.PromRuleWizard.backend.service.MetricToRuleService;
 
 @RestController("/CreatePromeRule")
