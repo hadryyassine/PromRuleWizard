@@ -1,5 +1,6 @@
 package com.PromRuleWizard.backend.service;
 
-public interface M2MService {
+import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 
+public interface M2MService {
 }
