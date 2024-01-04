@@ -1,0 +1,31 @@
+@namespace(uri="ApplicationMetricsSpecifications", prefix="")
+package ApplicationMetricsSpecifications;
+
+class MetricSpecification {
+	attr String metricName;
+	attr String description;
+	val Thresholds[1] thresholds;
+	val AlertConditions[1] alertConditions;
+	val Labels[*] labels;
+	val Annotations[*] annotations;
+}
+
+class Thresholds {
+	attr int warningThreshold;
+	attr int criticalThreshold;
+}
+
+class AlertConditions {
+	attr String conditionType;
+	attr String duration;
+}
+
+class Labels {
+	attr String key;
+	attr String value;
+}
+
+class Annotations {
+	attr String key;
+	attr String value;
+}
