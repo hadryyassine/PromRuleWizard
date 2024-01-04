@@ -51,6 +51,6 @@ public class Model2ModelService {
     {
         appMetric = FileReader.readFile("Models/ApplicationMetricsSpecifications.emf");
         promothRule = FileReader.readFile("Models/PrometheusRules.emf");
-        transformation = FileReader.readFile("Transformations/compose2manifest.etl");
+        transformation = FileReader.readFile("Transformations/AppMetric2Rule.etl");
     }
 }
