@@ -1,4 +1,3 @@
-[*Generate a Gantt chart for the project*]
 [%var p = PrometheusRule.all.first();%]
 - PrometheusRule:
     ruleType: [%=p.ruleType%]

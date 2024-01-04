@@ -1,4 +1,4 @@
-package com.PromRuleWizard.backend;
+package com.PromRuleWizard.backend.service;
 
 public interface M2MService {
 
