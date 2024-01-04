@@ -1,0 +1,22 @@
+@namespace(uri="PrometheusRules", prefix="")
+package PrometheusRules;
+
+class PrometheusRule {
+	attr String ruleType = "";
+	attr String name;
+	attr String expression;
+	attr String forDuration;
+	val Label[*] labels;
+	val Annotation[*] annotations;
+}
+
+class Label {
+	attr String key;
+	attr String value;
+}
+
+class Annotation {
+	attr String key;
+	attr String value;
+}
+

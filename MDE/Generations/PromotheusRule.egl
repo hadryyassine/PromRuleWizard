@@ -1,0 +1,18 @@
+[*Generate a Gantt chart for the project*]
+[%var p = PrometheusRule.all.first();%]
+- PrometheusRule:
+    ruleType: [%=p.ruleType%]
+    name: [%=p.name%]
+    expression: [%=p.expression%]
+    forDuration: [%=p.forDuration%]
+    labels:
+    [%for (l in p.labels){%]
+        - key: [%=l.key%]
+          value: [%=l.value%] 
+    [%}%]
+    annotations:
+    [%for (l in p.annotations){%]
+        - key: [%=l.key%]
+          value: [%=l.value%] 
+    [%}%]         
+
