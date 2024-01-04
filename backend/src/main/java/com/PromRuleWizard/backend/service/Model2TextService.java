@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @Service
 
 public class Model2TextService{
-    private String modelToText = FileReader.readFile("/PromotheusRule.egl");
+    private String modelToText = FileReader.readFile("Transformations/PromotheusRule.egl");
 
     public String model2TextTransformer(InMemoryEmfModel targetModel) throws Exception {
         // getting the EGL module :
