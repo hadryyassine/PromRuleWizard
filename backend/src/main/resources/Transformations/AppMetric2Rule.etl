@@ -1,0 +1,38 @@
+rule TransformMetricSpecification2PrometheusRule
+    transform s : Source!MetricSpecification
+    to t : Target!PrometheusRule {
+
+    // Determine the rule type based on the condition type
+    t.ruleType = s.alertConditions.conditionType = "AboveThreshold" ? "alert" : "record";
+
+    // Set the name of the rule based on the metric name
+    t.name = s.metricName + (s.alertConditions.conditionType = "AboveThreshold" ? "_alert" : "_record");
+
+    // Set the expression for the Prometheus rule
+    t.expression = s.alertConditions.conditionType = "AboveThreshold" ?
+                   s.metricName + " > " + s.thresholds.criticalThreshold.toString() :
+                   s.metricName + " < " + s.thresholds.warningThreshold.toString();
+
+    // Set the duration for which the condition must be true
+    t.forDuration = s.alertConditions.duration;
+    t.labels = new Sequence(Target!Label);
+    // Handle the labels
+   
+    for (label in s.labels) {
+        var newLabel = new Target!Label;
+        newLabel.key = label.key;
+        newLabel.value = label.value;
+        t.labels.add(newLabel);
+    }
+    
+    t.annotations = new Sequence(Target!Annotation);
+    // Handle the labels
+   
+    for (annotation in s.annotations) {
+        var newAnnotation = new Target!Annotation;
+        newAnnotation.key = annotation.key;
+        newAnnotation.value = annotation.value;
+        t.annotations.add(newAnnotation);
+    }
+    
+}
