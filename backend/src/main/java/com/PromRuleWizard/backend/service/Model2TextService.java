@@ -8,7 +8,7 @@ import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
 
 import jakarta.annotation.PostConstruct;
 
-public class Model2TextService implements M2TService {
+public class Model2TextService{
     @Override
     public String model2TextTransformer(InMemoryEmfModel targetModel) throws Exception {
         // getting the EGL module :
