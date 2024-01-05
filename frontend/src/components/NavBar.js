@@ -17,7 +17,7 @@ import "@fontsource/inter"; // Defaults to weight 400.
 const pages = ["Home", "Products", "About", "Contact"];
 const settings = ["Profile", "Account", "Dashboard", "Logout"];
 const appName = "PromRuleWizard";
-const blackColor = "#2A3342";
+const blackColor = "#2B1E24";
 
 function NavBar() {
     const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -191,15 +191,15 @@ function NavBar() {
                     <Button
                         sx={{
                             flexGrow: 0,
-                            bgcolor: "#F8911E",
+                            bgcolor: "#F93F01",
                             color: "white",
                             borderRadius: 36,
                             textTransform: "none",
                             px: 2,
                             '&:hover': {
                                 bgcolor: "white",
-                                color: "#F8911E",
-                                border: "1px solid #F8911E",
+                                color: "#F93F01",
+                                border: "1px solid #F93F01",
                             }
                         }}
                     >

@@ -125,7 +125,7 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
           <Typography variant="h2">Add Metric</Typography>
           <Box display="flex" flexDirection="column" gap={2}>
             <Box display="flex" flexDirection="row" alignItems="center" gap={5}>
-              <Typography>Name</Typography>
+              <Typography>MetricName</Typography>
               <TextField
                 size="small"
                 value={Metric.name}
@@ -134,7 +134,7 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
               />
             </Box>
             <Box display="flex" flexDirection="row" gap={5} alignItems="center">
-              <Typography>Docker</Typography>
+              <Typography>Description</Typography>
               <TextField
                 size="small"
                 value={Metric.docker}
@@ -148,7 +148,7 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
               gap={5}
               alignItems={Metric.commands.length === 0 ? "center" : "flex-start"}
             >
-              <Typography>Commands:</Typography>
+              <Typography>Treshholds</Typography>
               <Box display="flex" flexDirection="column" gap={1}>
                 {Metric.commands.map((command, index) => (
                   <Box
@@ -171,7 +171,7 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
                   alignItems="center"
                   gap={1}
                 >
-                  <Typography>Name</Typography>
+                  <Typography>Warning Threshold</Typography>
                   <TextField
                     name="commandName"
                     size="small"
@@ -179,7 +179,7 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
                     sx={{ width: 150 }}
                     onChange={handleCommandNameChange}
                   />
-                  <Typography>Task</Typography>
+                  <Typography>Critical Threshold</Typography>
                   <TextField
                     size="small"
                     onKeyDown={(e) => {
@@ -190,7 +190,59 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
                     onChange={handleCommandTaskChange}
                     value={command.task}
                   />
-                  <AddIcon sx={{ cursor: "pointer" }} onClick={addCommand} />
+
+                </Box>
+              </Box>
+            </Box>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={5}
+              alignItems={Metric.commands.length === 0 ? "center" : "flex-start"}
+            >
+              <Typography>Alert Conditions</Typography>
+              <Box display="flex" flexDirection="column" gap={1}>
+                {Metric.commands.map((command, index) => (
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography variant="h4">{command.name}</Typography>
+                    <CommandCodeSnippet content={command.task} />
+                    <ClearIcon
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => handleCommandDelete(index)}
+                    />
+                  </Box>
+                ))}
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <Typography>Condition Type</Typography>
+                  <TextField
+                    name="commandName"
+                    size="small"
+                    value={command.name}
+                    sx={{ width: 150 }}
+                    onChange={handleCommandNameChange}
+                  />
+                  <Typography>Duration</Typography>
+                  <TextField
+                    size="small"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        addCommand();
+                      }
+                    }}
+                    onChange={handleCommandTaskChange}
+                    value={command.task}
+                  />
+
                 </Box>
               </Box>
             </Box>
@@ -200,7 +252,7 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
               gap={5}
               alignItems={Metric.envVars.length === 0 ? "center" : "flex-start"}
             >
-              <Typography>Environment Variables:</Typography>
+              <Typography>Labels</Typography>
               <Box display="flex" flexDirection="column" gap={1}>
                 {Metric.envVars.map((envVar, index) => (
                   <Box
@@ -224,7 +276,109 @@ export const MetricForm = ({ Metrics, open, setOpen, currentMetric, setMetrics }
                   alignItems="center"
                   gap={1}
                 >
-                  <Typography>Name</Typography>
+                  <Typography>Key</Typography>
+                  <TextField
+                    name="envVarName"
+                    size="small"
+                    value={envVar.name}
+                    sx={{ width: 150 }}
+                    onChange={handleEnvNameChange}
+                  />
+                  <Typography>Value</Typography>
+                  <TextField
+                    name="envVarValue"
+                    size="small"
+                    value={envVar.value}
+                    sx={{ width: 150 }}
+                    onChange={handleEnvValueChange}
+                  />
+                  <AddIcon sx={{ cursor: "pointer" }} onClick={addEnvVar} />
+                </Box>
+              </Box>
+            </Box>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={5}
+              alignItems={Metric.commands.length === 0 ? "center" : "flex-start"}
+            >
+              <Typography>Alert Conditions</Typography>
+              <Box display="flex" flexDirection="column" gap={1}>
+                {Metric.commands.map((command, index) => (
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography variant="h4">{command.name}</Typography>
+                    <CommandCodeSnippet content={command.task} />
+                    <ClearIcon
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => handleCommandDelete(index)}
+                    />
+                  </Box>
+                ))}
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <Typography>Condition Type</Typography>
+                  <TextField
+                    name="commandName"
+                    size="small"
+                    value={command.name}
+                    sx={{ width: 150 }}
+                    onChange={handleCommandNameChange}
+                  />
+                  <Typography>Duration</Typography>
+                  <TextField
+                    size="small"
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter") {
+                        addCommand();
+                      }
+                    }}
+                    onChange={handleCommandTaskChange}
+                    value={command.task}
+                  />
+
+                </Box>
+              </Box>
+            </Box>
+            <Box
+              display="flex"
+              flexDirection="row"
+              gap={5}
+              alignItems={Metric.envVars.length === 0 ? "center" : "flex-start"}
+            >
+              <Typography>Annotations</Typography>
+              <Box display="flex" flexDirection="column" gap={1}>
+                {Metric.envVars.map((envVar, index) => (
+                  <Box
+                    display="flex"
+                    flexDirection="row"
+                    alignItems="center"
+                    gap={1}
+                  >
+                    <Typography variant="body1">
+                      {envVar.name}={envVar.value}
+                    </Typography>
+                    <ClearIcon
+                      sx={{ cursor: "pointer" }}
+                      onClick={() => handleEnvVarDelete(index)}
+                    />
+                  </Box>
+                ))}
+                <Box
+                  display="flex"
+                  flexDirection="row"
+                  alignItems="center"
+                  gap={1}
+                >
+                  <Typography>Key</Typography>
                   <TextField
                     name="envVarName"
                     size="small"

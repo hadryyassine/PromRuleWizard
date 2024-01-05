@@ -5,7 +5,7 @@ const theme = createTheme({
   typography: {
     fontFamily: ["Inter", "Helvetica Neue", "Arial", "sans-serif"].join(","),
     allVariants: {
-      color: "#2A3342",
+      color: "#2B1E24",
     },
     h1: {
       fontSize: "2em",
@@ -30,7 +30,7 @@ const theme = createTheme({
   },
   palette: {
     primary: {
-      main: "#F8911E",
+      main: "#F93F01",
       contrastText: "#fff",
     },
     secondary: {
@@ -41,7 +41,7 @@ const theme = createTheme({
       white: "#fff",
       black: "#2A3342",
     },
-    grey:{
+    grey: {
       50: "#d9d9d9",
       100: "#969696",
     }
