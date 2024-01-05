@@ -22,7 +22,7 @@ public class PromeRuleController {
 	public ResponseEntity<?> forwardEngineering(@RequestBody ApplicationMetricsDto ApplicationMetricDTO) throws Exception
 	{
 		InMemoryEmfModel targetModel = model2ModelService
-				.modelToModelTransformation(ApplicationMetricDTO.getSourceFlexmi());
+				.modelToModelTransformation(ApplicationMetricDTO.getAppMetricSource());
 		String generatedConfigFile = model2TextService
 				.model2TextTransformer(targetModel);
 		return ResponseEntity.ok(generatedConfigFile);
