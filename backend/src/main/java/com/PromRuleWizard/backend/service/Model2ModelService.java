@@ -8,7 +8,6 @@ import org.eclipse.epsilon.eol.exceptions.EolRuntimeException;
 import org.eclipse.epsilon.etl.EtlModule;
 import org.springframework.stereotype.Service;
 
-
 import java.io.IOException;
 
 @Service
@@ -21,7 +20,7 @@ public class Model2ModelService {
     public InMemoryEmfModel modelToModelTransformation(String inputFlexmi) throws Exception {
         EtlModule module = new EtlModule();
         module.parse(transformation);
-        if(!module.getParseProblems().isEmpty()){
+        if (!module.getParseProblems().isEmpty()) {
             throw new RuntimeException(module.getParseProblems().get(0).toString());
         }
         module.getContext().setOutputStream(System.out);
@@ -29,11 +28,11 @@ public class Model2ModelService {
                 module,
                 inputFlexmi,
                 appMetric,
-                promothRule
-        );
+                promothRule);
     }
 
-    private InMemoryEmfModel runTransformation(EtlModule module, String inputFlexmi, String inputEmfatic, String promothRuleEmfatic)
+    private InMemoryEmfModel runTransformation(EtlModule module, String inputFlexmi, String inputEmfatic,
+            String promothRuleEmfatic)
             throws IOException, EolRuntimeException {
         System.out.println("runTransformation");
         InMemoryEmfModel inputModel = ModelLoader.getInMemoryFlexmiModel(inputFlexmi, inputEmfatic);
@@ -47,8 +46,7 @@ public class Model2ModelService {
     }
 
     @PostConstruct
-    public void loadFiles()
-    {
+    public void loadFiles() {
         appMetric = FileReader.readFile("Models/ApplicationMetricsSpecifications.emf");
         promothRule = FileReader.readFile("Models/PrometheusRules.emf");
         transformation = FileReader.readFile("Transformations/AppMetric2Rule.etl");

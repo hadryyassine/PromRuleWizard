@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.PromRuleWizard.backend.dto.ApplicationMetricsDto;
+
 @RestController
 public class PromeRuleController {
 	@Autowired
@@ -18,14 +19,13 @@ public class PromeRuleController {
 	private Model2TextService model2TextService;
 
 	@PostMapping("/forwards")
-	public ResponseEntity<?> forwardEngineering(@RequestBody ApplicationMetricsDto ApplicationMetricDTO) throws Exception
-	{
+	public ResponseEntity<?> forwardEngineering(@RequestBody ApplicationMetricsDto ApplicationMetricDTO)
+			throws Exception {
 		InMemoryEmfModel targetModel = model2ModelService
 				.modelToModelTransformation(ApplicationMetricDTO.getAppMetricSource());
 		String generatedConfigFile = model2TextService
 				.model2TextTransformer(targetModel);
 		return ResponseEntity.ok(generatedConfigFile);
 	}
-
 
 }
