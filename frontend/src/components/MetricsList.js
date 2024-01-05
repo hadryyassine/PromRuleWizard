@@ -1,12 +1,20 @@
 import { Box, Typography } from "@mui/material";
-import * as React from "react";
+import React from "react";
 import { AddMetric } from "./addMetrics";
 import { Metric } from "./Metrics";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 
-export const MetricList = ({ Metrics, setOpenMetricForm, setMetrics, setCurrentMetric }) => {
+export const MetricList = ({
+  Metrics,
+  setOpenMetricForm,
+  setMetrics,
+  setCurrentMetric,
+}) => {
   const [visibleDesc, setVisibleDesc] = React.useState(false);
+
+  // Ensure that Metrics is an array before trying to map over it
+  const safeMetrics = Metrics || [];
 
   return (
     <Box display="flex" flexDirection="column" sx={{ width: "80%" }} gap={2}>
@@ -27,21 +35,23 @@ export const MetricList = ({ Metrics, setOpenMetricForm, setMetrics, setCurrentM
       </Box>
       {visibleDesc && (
         <Typography>
-          A Metric is a singular execution unit that contains a set commands
+          A Metric is a singular execution unit that contains a set of commands
         </Typography>
       )}
-      {Metrics.map((Metric) => {
-        return (
-          <Metric
-            Metric={Metric}
-            Metrics={Metrics}
-            setMetrics={setMetrics}
-            setOpenMetricForm={setOpenMetricForm}
-            setCurrentMetric={setCurrentMetric}
-          />
-        );
-      })}
-      <AddMetric setOpen={setOpenMetricForm} setCurrentMetric={setCurrentMetric} />
+      {safeMetrics.map((metric) => (
+        <Metric
+          key={metric.metricName} // Assuming metricName is unique
+          metric={metric}
+          metrics={safeMetrics}
+          setMetrics={setMetrics}
+          setOpenMetricForm={setOpenMetricForm}
+          setCurrentMetric={setCurrentMetric}
+        />
+      ))}
+      <AddMetric
+        setOpen={setOpenMetricForm}
+        setCurrentMetric={setCurrentMetric}
+      />
     </Box>
   );
 };

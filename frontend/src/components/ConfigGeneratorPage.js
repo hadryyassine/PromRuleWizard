@@ -1,65 +1,71 @@
+import React, { useState, useCallback } from "react";
 import { Box, Button, Typography } from "@mui/material";
-import * as React from "react";
 import { ConfigGeneratorHeader } from "./ConfigGeneratorHeader";
-
 import { MetricForm } from "./MetricsForm";
 import { MetricList } from "./MetricsList";
-
-import { ConfigFileView } from "./ConfigFileView.js";
+import { ConfigFileView } from "./ConfigFileView";
+import { generateConfigFile } from "../service/service";
 
 export const ConfigGeneratorPage = () => {
-    const [ciConfig, setCiConfig] = React.useState({
-        Metrics: [],
-        globalUnits: [],
-        targetCi: "circleCI",
-    });
-    const [configFileResponse, setConfigFileResponse] = React.useState("");
-    const [currentMetric, setCurrentMetric] = React.useState({
-        name: "",
-        docker: "",
-        commands: [],
-        envVars: [],
-        dependencies: [],
-    });
+  const [metrics, setMetrics] = useState([]);
+  const [configFileResponse, setConfigFileResponse] = useState("");
+  const [currentMetric, setCurrentMetric] = useState(null);
+  const [openMetricForm, setOpenMetricForm] = useState(false);
 
-    const [openMetricForm, setOpenMetricForm] = React.useState(false);
+  const handleGenerateConfigFile = () => {
+    generateConfigFile(metrics, setConfigFileResponse);
+  };
 
-    const setMetrics = (Metrics) => setCiConfig({ ...ciConfig, Metrics });
+  const updateMetrics = useCallback(
+    (newMetric) => {
+      const updatedMetrics = [...metrics];
+      const index = metrics.findIndex(
+        (m) => m.metricName === newMetric.metricName
+      );
+      if (index >= 0) {
+        updatedMetrics[index] = newMetric;
+      } else {
+        updatedMetrics.push(newMetric);
+      }
+      setMetrics(updatedMetrics);
+      console.log("Updated metrics", updatedMetrics);
+    },
+    [metrics]
+  );
 
-    const setTargetCi = (targetCi) => setCiConfig({ ...ciConfig, targetCi });
-    return (
-        <Box
-            display="flex"
-            flexDirection="column"
-            sx={{ mt: 4, mb: 8, width: "80%", mx: "auto" }}
-            alignItems="center"
-            gap={5}
-        >
-            <ConfigGeneratorHeader />
-            <MetricList
-                Metrics={ciConfig.Metrics}
-                setOpenMetricForm={setOpenMetricForm}
-                setMetrics={setMetrics}
-                setCurrentMetric={setCurrentMetric}
-            />
-            <MetricForm
-                open={openMetricForm}
-                setOpen={setOpenMetricForm}
-                currentMetric={currentMetric}
-                Metrics={ciConfig.Metrics}
-                setMetrics={setMetrics}
-
-            />
-            
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{ textTransform: "none", width: "40%" }}
-            //onClick={() => generateConfigFile(ciConfig, setConfigFileResponse)}
-            >
-                Generate YAML File
-            </Button>
-            <ConfigFileView configFile={configFileResponse} />
-        </Box>
-    );
+  return (
+    <Box
+      display="flex"
+      flexDirection="column"
+      sx={{ mt: 4, mb: 8, width: "80%", mx: "auto" }}
+      alignItems="center"
+      gap={5}
+    >
+      <ConfigGeneratorHeader />
+      <MetricList
+        metrics={metrics}
+        setOpenMetricForm={setOpenMetricForm}
+        setMetrics={setMetrics}
+        setCurrentMetric={setCurrentMetric}
+      />
+      {openMetricForm && (
+        <MetricForm
+          open={openMetricForm}
+          setOpen={setOpenMetricForm}
+          currentMetric={currentMetric}
+          setMetrics={setMetrics} // Directly pass setMetrics here
+          Metrics={metrics}
+        />
+      )}
+      <Button
+        variant="contained"
+        color="primary"
+        sx={{ textTransform: "none", width: "40%" }}
+        onClick={handleGenerateConfigFile}
+      >
+        Generate YAML File
+      </Button>
+      <ConfigFileView configFile={configFileResponse} />
+    </Box>
+  );
 };
