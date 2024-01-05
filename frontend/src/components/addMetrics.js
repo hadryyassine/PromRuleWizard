@@ -10,7 +10,7 @@ export const AddMetric = ({ setOpen, setCurrentMetric }) => {
       sx={{
         height: 100,
         background:
-          "linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), #FFFFFF",
+          "linear-gradient(0deg, rgba(0, 0, 0, 0.02), rgba(0, 0, 0, 0.02)), #2B1E24",
         border: "1px dashed #000000",
         borderRadius: 2,
         cursor: "pointer",
@@ -27,7 +27,9 @@ export const AddMetric = ({ setOpen, setCurrentMetric }) => {
         setOpen(true);
       }}
     >
-      <Typography variant="h3">Add Metrics</Typography>
+      <Typography variant="h3" color="primary">
+        Add Metrics
+      </Typography>
     </Box>
   );
 };

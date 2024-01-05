@@ -38,22 +38,18 @@ function prepareFlexmiMetrics(metrics) {
     flexmiMetrics += `        conditionType: ${metric.alertConditions.conditionType},\n`;
     flexmiMetrics += `        duration: ${metric.alertConditions.duration}\n`;
     flexmiMetrics += `    },\n`;
-    flexmiMetrics += prepareFlexmiLabelsAnnotations(metric.labels, "labels");
-    flexmiMetrics += prepareFlexmiLabelsAnnotations(
-      metric.annotations,
-      "annotations"
-    );
+    flexmiMetrics += prepareFlexmiItems(metric.labels, "labels");
+    flexmiMetrics += prepareFlexmiItems(metric.annotations, "annotations");
     flexmiMetrics += `}\n`;
   });
   return flexmiMetrics;
 }
 
-function prepareFlexmiLabelsAnnotations(items, type) {
-  let flexmiItems = `    ${type}: {\n`;
+function prepareFlexmiItems(items, type) {
+  let flexmiItems = `    ${type}: [\n`;
   items.forEach((item) => {
-    flexmiItems += `        key: ${item.key},\n`;
-    flexmiItems += `        value: ${item.value}\n`;
+    flexmiItems += `        { key: "${item.key}", value: "${item.value}" },\n`;
   });
-  flexmiItems += `    },\n`;
+  flexmiItems += `    ],\n`;
   return flexmiItems;
 }

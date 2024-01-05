@@ -1,5 +1,5 @@
 import React, { useState, useCallback } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { ConfigGeneratorHeader } from "./ConfigGeneratorHeader";
 import { MetricForm } from "./MetricsForm";
 import { MetricList } from "./MetricsList";
@@ -13,25 +13,9 @@ export const ConfigGeneratorPage = () => {
   const [openMetricForm, setOpenMetricForm] = useState(false);
 
   const handleGenerateConfigFile = () => {
+    console.log("Generating config file with metrics:", metrics);
     generateConfigFile(metrics, setConfigFileResponse);
   };
-
-  const updateMetrics = useCallback(
-    (newMetric) => {
-      const updatedMetrics = [...metrics];
-      const index = metrics.findIndex(
-        (m) => m.metricName === newMetric.metricName
-      );
-      if (index >= 0) {
-        updatedMetrics[index] = newMetric;
-      } else {
-        updatedMetrics.push(newMetric);
-      }
-      setMetrics(updatedMetrics);
-      console.log("Updated metrics", updatedMetrics);
-    },
-    [metrics]
-  );
 
   return (
     <Box
