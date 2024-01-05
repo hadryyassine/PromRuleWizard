@@ -11,7 +11,5 @@ public class ApplicationMetricsDto {
 
 	private String appMetricSource;
 
-	}
+}
 	
-	
-

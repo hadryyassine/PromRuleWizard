@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import { Box, Button } from "@mui/material";
 import { ConfigGeneratorHeader } from "./ConfigGeneratorHeader";
 import { MetricForm } from "./MetricsForm";

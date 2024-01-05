@@ -6,12 +6,10 @@
     forDuration: [%=p.forDuration%]
     labels:
     [%for (l in p.labels){%]
-        - key: [%=l.key%]
-          value: [%=l.value%] 
+        - [%=l.key%]: [%=l.value%]
     [%}%]
     annotations:
     [%for (l in p.annotations){%]
-        - key: [%=l.key%]
-          value: [%=l.value%] 
-    [%}%]         
+        - [%=l.key%]: [%=l.value%]
+    [%}%]
 
