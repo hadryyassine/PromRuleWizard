@@ -19,7 +19,7 @@ This project introduces a web-based application designed to automate the generat
 <h3>Architecture </h3>
 
 <p align="center" >
-<img src= "Resource/secondArchitecture" height="auto" width="auto" />
+<img src= "Resource/secondArchitecture,png" height="auto" width="auto" />
 </p>
 
 <h3>Road Map </h3>
