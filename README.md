@@ -14,11 +14,25 @@ A primary challenge in DevOps is the efficient generation of monitoring rules fo
 
 This project introduces a web-based application designed to automate the generation of Prometheus monitoring rules from user-defined application metrics specifications. Utilizing Model-Driven Engineering (MDE), the application will transform metrics into detailed Prometheus alerting and recording rules in YAML format. Developed using Spring Boot and React JS, it will provide an intuitive interface for inputting metrics specifications. The backend will process this input, converting it into Prometheus-compatible rules, thus providing users with ready-to-use YAML files for their monitoring setup. This solution aims to simplify the monitoring setup process, ensuring accuracy and consistency in the Prometheus rules generation, and enhancing the efficiency of DevOps workflows.
 
+## Architecture & Road map
+
+<h3>Architecture </h3>
+
+<p align="center" >
+<img src= "Resource/Archirecture.jpeg" height="auto" width="auto" />
+</p>
+
+<h3>Road Map </h3>
+
+<p align="center" >
+<img src= "Resource/RoadMap.jpeg" height="auto" width="auto" />
+</p>
+
 ## Selected metamodels
 
 <h3>Source Meta Model : Application Metrics Specification </h3>
 <p align="center" >
-<img src= "Resource/Source.jpeg" height="180" width="auto" />
+<img src= "Resource/Source.jpeg" height="360" width="auto" />
 </p>
 
 - The Source Metamodel is centered around `MetricSpecification`, which defines metrics, their names, alert conditions, thresholds, labels, and annotations.
@@ -62,3 +76,17 @@ This project introduces a web-based application designed to automate the generat
 - The EGL template provides a textual representation of a `PrometheusRule` instance.
 - It visualizes the properties of `PrometheusRule` like `ruleType`, `name`, `expression`, along with its `labels` and `annotations`.
 - The template is designed to iterate over the `labels` and `annotations` collections, displaying each key-value pair.
+
+## Contributers
+
+- [Yassine Hadry](https://github.com/hadryyassine)
+- [Fatima Zahra Zarhouni](https://github.com/zarhouni21)
+- [Salma Garmouti](https://github.com/GarmoutiSalma)
+
+## Aknowledgement
+
+This project were inspired from this Repository, mainly the backend and the frontend : https://github.com/Assifar-Karim/MonasCI !
+
+## Conclusion
+
+The Prometheus Monitoring Rules Generator represents a significant advancement in the field of DevOps and application monitoring. By automating the conversion of high-level application metrics into detailed monitoring rules, this tool not only saves time and reduces the potential for errors, but also democratizes the process, making advanced monitoring setups accessible to a wider range of users, regardless of their expertise in Prometheus. Looking forward, the potential for further enhancements and integrations with other DevOps tools opens a pathway for even more streamlined and efficient application monitoring solutions.
