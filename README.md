@@ -85,7 +85,7 @@ This project introduces a web-based application designed to automate the generat
 
 ## Aknowledgement
 
-This project were inspired from this Repository, mainly the backend and the frontend : https://github.com/Assifar-Karim/MonasCI !
+This project was inspired from this Repository, mainly the backend and the frontend : https://github.com/Assifar-Karim/MonasCI !
 
 ## Conclusion
 
