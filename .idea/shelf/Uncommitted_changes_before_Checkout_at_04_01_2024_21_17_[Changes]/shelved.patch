@@ -1,0 +1,87 @@
+Index: backend/src/main/java/com/PromRuleWizard/backend/service/PrometheusYamlGenerationService.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.PromRuleWizard.backend.service;\r\n\r\n\r\nimport org.eclipse.epsilon.emc.emf.InMemoryEmfModel;\r\nimport org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;\r\nimport org.eclipse.epsilon.egl.IEglModule;\r\nimport org.springframework.stereotype.Service;\r\nimport javax.annotation.PostConstruct;\r\nimport java.io.File;\r\nimport java.io.IOException;\r\nimport java.util.Map;\r\n\r\n@Service\r\npublic class PrometheusYamlGenerationServiceImpl implements PrometheusYamlGenerationService {\r\n\r\n    private Map<String, String> prometheusYamlTransformations;\r\n\r\n    @Override\r\n    public String generatePrometheusYaml(InMemoryEmfModel model, String targetFormat) throws Exception {\r\n        IEglModule module = (IEglModule) new EglTemplateFactoryModuleAdapter();\r\n        module.parse(prometheusYamlTransformations.get(targetFormat), new File(\"/prometheusYamlGeneration.egl\"));\r\n\r\n        if (!module.getParseProblems().isEmpty()) {\r\n            throw new RuntimeException(module.getParseProblems().get(0).toString());\r\n        }\r\n\r\n        module.getContext().getModelRepository().addModel(model);\r\n\r\n        return module.execute() + \"\";\r\n    }\r\n\r\n    @PostConstruct\r\n    public void loadPrometheusYamlTransformationFiles() {\r\n        prometheusYamlTransformations = Map.of(\r\n                \"default\", FileReader.readFile(\"transformations/PrometheusYamlGeneration.egl\"),\r\n                // Add more target formats as needed\r\n        );\r\n    }\r\n}
+===================================================================
+diff --git a/backend/src/main/java/com/PromRuleWizard/backend/service/PrometheusYamlGenerationService.java b/backend/src/main/java/com/PromRuleWizard/backend/service/PrometheusYamlGenerationService.java
+--- a/backend/src/main/java/com/PromRuleWizard/backend/service/PrometheusYamlGenerationService.java	
++++ b/backend/src/main/java/com/PromRuleWizard/backend/service/PrometheusYamlGenerationService.java	
+@@ -1,39 +1,4 @@
+ package com.PromRuleWizard.backend.service;
+ 
+-
+-import org.eclipse.epsilon.emc.emf.InMemoryEmfModel;
+-import org.eclipse.epsilon.egl.EglTemplateFactoryModuleAdapter;
+-import org.eclipse.epsilon.egl.IEglModule;
+-import org.springframework.stereotype.Service;
+-import javax.annotation.PostConstruct;
+-import java.io.File;
+-import java.io.IOException;
+-import java.util.Map;
+-
+-@Service
+-public class PrometheusYamlGenerationServiceImpl implements PrometheusYamlGenerationService {
+-
+-    private Map<String, String> prometheusYamlTransformations;
+-
+-    @Override
+-    public String generatePrometheusYaml(InMemoryEmfModel model, String targetFormat) throws Exception {
+-        IEglModule module = (IEglModule) new EglTemplateFactoryModuleAdapter();
+-        module.parse(prometheusYamlTransformations.get(targetFormat), new File("/prometheusYamlGeneration.egl"));
+-
+-        if (!module.getParseProblems().isEmpty()) {
+-            throw new RuntimeException(module.getParseProblems().get(0).toString());
+-        }
+-
+-        module.getContext().getModelRepository().addModel(model);
+-
+-        return module.execute() + "";
+-    }
+-
+-    @PostConstruct
+-    public void loadPrometheusYamlTransformationFiles() {
+-        prometheusYamlTransformations = Map.of(
+-                "default", FileReader.readFile("transformations/PrometheusYamlGeneration.egl"),
+-                // Add more target formats as needed
+-        );
+-    }
+-}
+\ No newline at end of file
++public interface PrometheusYamlGenerationService {
++}
+Index: .idea/encodings.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"Encoding\">\r\n    <file url=\"file://$PROJECT_DIR$/backend/src/main/java\" charset=\"UTF-8\" />\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/encodings.xml b/.idea/encodings.xml
+--- a/.idea/encodings.xml	
++++ b/.idea/encodings.xml	
+@@ -2,5 +2,6 @@
+ <project version="4">
+   <component name="Encoding">
+     <file url="file://$PROJECT_DIR$/backend/src/main/java" charset="UTF-8" />
++    <file url="file://$PROJECT_DIR$/backend/src/main/resources" charset="UTF-8" />
+   </component>
+ </project>
+\ No newline at end of file
+Index: .idea/jarRepositories.xml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+><?xml version=\"1.0\" encoding=\"UTF-8\"?>\r\n<project version=\"4\">\r\n  <component name=\"RemoteRepositoriesConfiguration\">\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"central\" />\r\n      <option name=\"name\" value=\"Central Repository\" />\r\n      <option name=\"url\" value=\"https://repo.maven.apache.org/maven2\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"central\" />\r\n      <option name=\"name\" value=\"Maven Central repository\" />\r\n      <option name=\"url\" value=\"https://repo1.maven.org/maven2\" />\r\n    </remote-repository>\r\n    <remote-repository>\r\n      <option name=\"id\" value=\"jboss.community\" />\r\n      <option name=\"name\" value=\"JBoss Community repository\" />\r\n      <option name=\"url\" value=\"https://repository.jboss.org/nexus/content/repositories/public/\" />\r\n    </remote-repository>\r\n  </component>\r\n</project>
+===================================================================
+diff --git a/.idea/jarRepositories.xml b/.idea/jarRepositories.xml
+--- a/.idea/jarRepositories.xml	
++++ b/.idea/jarRepositories.xml	
+@@ -7,6 +7,11 @@
+       <option name="url" value="https://repo.maven.apache.org/maven2" />
+     </remote-repository>
+     <remote-repository>
++      <option name="id" value="Sonatype" />
++      <option name="name" value="Sonatype" />
++      <option name="url" value="https://oss.sonatype.org/content/repositories/snapshots" />
++    </remote-repository>
++    <remote-repository>
+       <option name="id" value="central" />
+       <option name="name" value="Maven Central repository" />
+       <option name="url" value="https://repo1.maven.org/maven2" />
